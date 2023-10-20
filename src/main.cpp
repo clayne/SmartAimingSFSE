@@ -42,7 +42,7 @@ namespace Handler
 
 	struct WeaponDraw
 	{
-		static bool Thunk(std::uintptr_t a_handler, RE::Actor* a_actor, const RE::BSFixedString& a_tag)
+		static bool thunk(std::uintptr_t a_handler, RE::Actor* a_actor, const RE::BSFixedString& a_tag)
 		{
 			const auto result = func(a_handler, a_actor, a_tag);
 			if (a_actor->IsPlayerRef()) {
@@ -50,13 +50,13 @@ namespace Handler
 			}
 			return result;
 		}
-		static inline REL::Relocation<decltype(Thunk)> func;
-		static inline std::uintptr_t                   address{ REL::Relocation<std::uintptr_t>(REL::Offset(0x025F7080), 0x2C).address() };
+		static inline REL::Relocation<decltype(thunk)> func;
+		static inline std::uintptr_t                   address{ REL::Relocation<std::uintptr_t>(REL::ID(155299), 0x2C).address() };
 	};
 
 	struct EnterIronSights
 	{
-		static bool Thunk(RE::PlayerCamera* a_camera, std::uint32_t a_state)
+		static bool thunk(RE::PlayerCamera* a_camera, std::uint32_t a_state)
 		{
 			const auto result = func(a_camera, a_state);
 			if (!result) {
@@ -64,13 +64,13 @@ namespace Handler
 			}
 			return result;
 		}
-		static inline REL::Relocation<decltype(Thunk)> func;
-		static inline std::uintptr_t                   address{ REL::Relocation<std::uintptr_t>(REL::Offset(0x0259FE2C), 0x128).address() };  // -_-
+		static inline REL::Relocation<decltype(thunk)> func;
+		static inline std::uintptr_t                   address{ REL::Relocation<std::uintptr_t>(REL::ID(153910), 0x128).address() };  // -_-
 	};
 
 	struct WeaponSheathe
 	{
-		static bool Thunk(std::uintptr_t a_handler, RE::Actor* a_actor, const RE::BSFixedString& a_tag)
+		static bool thunk(std::uintptr_t a_handler, RE::Actor* a_actor, const RE::BSFixedString& a_tag)
 		{
 			const auto result = func(a_handler, a_actor, a_tag);
 			if (a_actor->IsPlayerRef()) {
@@ -78,13 +78,13 @@ namespace Handler
 			}
 			return result;
 		}
-		static inline REL::Relocation<decltype(Thunk)> func;
+		static inline REL::Relocation<decltype(thunk)> func;
 		static inline std::size_t                      idx{ 0x1 };
 	};
 
 	struct ExitIronSights
 	{
-		static bool Thunk(RE::PlayerCamera* a_camera, std::uint32_t a_state)
+		static bool thunk(RE::PlayerCamera* a_camera, std::uint32_t a_state)
 		{
 			const auto result = func(a_camera, a_state);
 			if (!result) {
@@ -92,8 +92,8 @@ namespace Handler
 			}
 			return result;
 		}
-		static inline REL::Relocation<decltype(Thunk)> func;
-		static inline std::uintptr_t                   address{ REL::Relocation<std::uintptr_t>(REL::Offset(0x0259FE2C), 0x231).address() };  // -_-
+		static inline REL::Relocation<decltype(thunk)> func;
+		static inline std::uintptr_t                   address{ REL::Relocation<std::uintptr_t>(REL::ID(153910), 0x231).address() };  // -_-
 	};
 
 	void Install()
@@ -139,11 +139,11 @@ DLLEXPORT constinit auto SFSEPlugin_Version = []() noexcept {
 	data.PluginVersion(Version::MAJOR);
 	data.PluginName(Version::PROJECT);
 	data.AuthorName("powerofthree");
-	data.UsesSigScanning(true);
-	//data.UsesAddressLibrary(true);
-	data.HasNoStructUse(true);
-	//data.IsLayoutDependent(true);
-	data.CompatibleVersions({ SFSE::RUNTIME_SF_1_7_29 });
+	data.UsesSigScanning(false);
+	data.UsesAddressLibrary(true);
+	data.HasNoStructUse(false);
+	data.IsLayoutDependent(true);
+	data.CompatibleVersions({ SFSE::RUNTIME_LATEST });
 
 	return data;
 }();
